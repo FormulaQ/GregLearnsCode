@@ -1,0 +1,83 @@
+from random import randint
+
+
+
+game_running = True
+
+while game_running == True:
+
+    new_round = True
+
+    player = {"attack_min": 12, "attack_max": 25, "heal": 8, "health": 100}
+    snooki = {"name": "Snooki", "attack_min": 15, "attack_max": 23, "health": 120}
+
+    print("Enter player name")
+    player["name"] = input()
+
+
+    def randomize_player_attack():
+        return randint(player["attack_min"], player["attack_max"])
+
+
+
+    def randomize_snooki_attack():
+        return randint(snooki["attack_min"], snooki["attack_max"])
+
+
+    while new_round == True:
+
+        player_won = False
+        snooki_won = False
+
+        print("`~-" + ("---" * 7) + "-~'")
+        print("Select action")
+        print("1) Kick")
+        print("2) Heal")
+        print("3) Exit Game")
+
+        player_choice = input()
+
+        if player_choice == "1":
+            snooki["health"] = snooki["health"] - randomize_player_attack()
+            print(str(player["name"]) + " kicks Snooki")
+            print("Snooki's health is now " + str(snooki["health"]))
+            if snooki["health"] <= 0:
+                player_won = True
+                print((str(player["name"]) + " Wins.\nGame_0ver"))
+            else:
+                if player_won == False and snooki_won == False:
+                    print("Snooki kicks back")
+
+                    player["health"] = player["health"] - randomize_snooki_attack()
+                    print("Gamer's health is now " + str(player["health"]))
+                    if player["health"] <= 70 and player["health"] > 0:
+                        print("Snooki is winning! If only there was a secret phrase...")
+                    if player["health"] <= 0:
+                        snooki_won = True
+                        print("Snooki Wins.\nGame_0ver")
+        elif player_choice == "2":
+            player["health"] = player["health"] + player["heal"]
+            print("Gamer heals")
+
+        elif player_choice == "3":
+            new_round = False
+            game_running = False
+        elif player_choice == "Cockney Rabbish" or "Cockney rabbish" or "cockney rabbish":
+            player["attack"] = 100
+            print(player["name"] + " feels powerful..")
+
+
+        else:
+            print("Can't do that pal")
+
+
+
+
+
+
+        if player_won == True or snooki_won == True:
+            new_round = False
+
+
+
+
